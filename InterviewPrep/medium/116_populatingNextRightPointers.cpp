@@ -50,15 +50,8 @@ public:
             q.push(NULL);
             continue;
         }
-        else {
-
-            if (q.empty()) {
-               tmp->next = NULL;
-             }
-            else {
-               tmp->next = q.front();
-             }
-        }
+        else
+          tmp->next = q.front();
 
         if (tmp->left != NULL)
           q.push(tmp->left);
