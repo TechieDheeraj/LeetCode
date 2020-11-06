@@ -25,6 +25,10 @@ public:
       while (root != NULL && root->val!=val)
         root = (root->val > val) ? root->left : root->right; 
      /* 
+
+      if (root == NULL)
+        return NULL;
+
       if (root->val == val)
         return root;
 
