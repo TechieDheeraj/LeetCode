@@ -25,6 +25,32 @@ public:
 
 class Solution {
 public:
+    Node* connect(Node* root) {
+      
+      Node *levelStartNode = root;
+      
+      while (levelStartNode != NULL) {
+        
+        Node *node = levelStartNode;
+        
+        while (node != NULL) {
+          if (node->left != NULL)
+            node->left->next = node->right;
+          if (node->right !=NULL && node->next !=NULL)
+            node->right->next = node->next->left;
+          
+          node = node->next;
+        }
+        levelStartNode = levelStartNode->left;
+      }
+      return root;
+    }
+};
+
+/****************************************************************************************/
+
+class Solution {
+public:
     enum state { NULLSTATE, NON_NULLSTATE};
     Node* connect(Node* root) {
 
