@@ -4,7 +4,6 @@
  *      created :  2020 Nov 13 02:41:47
  *      lastMod :  Fri Nov 13 02:41:47 2020
 **/
-
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -17,7 +16,20 @@
 
 class Solution {
 public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 
+      if (root == p || root == q || root== NULL) return root;
+      TreeNode* left=NULL;
+      TreeNode* right = NULL;
+      if (p->val < root->val || q->val < root->val)
+         left = lowestCommonAncestor(root->left, p, q);
+      if (p->val > root->val || q->val > root->val)
+         right = lowestCommonAncestor(root->right, p, q);
+
+      return left && right ? root : right ? right : left;
+
+    }
+  /*
     vector<vector<TreeNode*>>d;
     void makepath(TreeNode* root, TreeNode* node) {
 
@@ -64,4 +76,5 @@ public:
 
       return min;
     }
+    */
 };
