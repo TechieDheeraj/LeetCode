@@ -18,6 +18,43 @@
 
 class Solution {
 public:
+    ListNode *phead = new ListNode(0);
+    ListNode *head = phead;
+
+    void helper(ListNode *l1, ListNode *l2, ListNode* head) {
+
+      if (l1 == NULL || l2 == NULL) {
+        head->next = (l1 == NULL) ? l2 : l1;
+        return;
+      }
+
+      if (l1->val <= l2->val) {
+        //cout << " l " << l1->val << "r " << l2->val << endl;
+        head->next = l1;
+        helper(l1->next, l2, head->next);
+      }
+      else {
+        //cout << "second l " << l1->val << " r " << l2->val << endl;
+        head->next = l2;
+        helper(l1, l2->next, head->next);
+      }
+
+    }
+
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+      if (l1 == NULL && l2 == NULL) {
+        return NULL;
+      }
+
+      helper(l1, l2, head);
+
+      return phead->next;
+    }
+};
+
+/*
+class Solution {
+public:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
 
      ListNode *head = new ListNode();
@@ -43,3 +80,4 @@ public:
       return phead->next;
     }
 };
+*/
