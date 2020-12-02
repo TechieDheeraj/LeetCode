@@ -1,25 +1,22 @@
 /**
  *      file    :  81_searchInRotatedArrayII.go
  *      author  :  techiedheeraj
- *      created :  2020 Nov 21 02:47:51
- *      lastMod :  Sat Nov 21 02:47:51 2020
+ *      created :  2020 Dec 03 01:44:42
+ *      lastMod :  Thu Dec  3 01:44:42 2020
 **/
 
-package main
+func search(nums []int, target int) bool {
 
-import (
-  "fmt"
-)
+  var hm = make(map[int]int)
 
-class Solution {
-public:
-    bool search(vector<int>& nums, int target) {
+  for i, j := range nums {
+    hm[j] = i
+  }
 
-      unordered_set<int>hashSet;
-      for(auto &i: nums)
-        hashSet.insert(i);
+  _, ok := hm[target]
+  if ok == true {
+    return true
+  }
 
-      return hashSet.find(target) != hashSet.end();
-
-    }
+  return false
 }
