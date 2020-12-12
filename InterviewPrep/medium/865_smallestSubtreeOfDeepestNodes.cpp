@@ -19,26 +19,23 @@
 class Solution {
 public:
     int deepest = 0;
-    TreeNode* result;
-    int helper(TreeNode* root, int depth) {
-
-      cout << "level is " << depth << endl;
-      if (root == NULL) {
-        deepest = max(deepest, depth);
+    TreeNode* result = NULL; 
+    int helper(TreeNode* node, int depth) {
+      
+      if (node == NULL) {
+        deepest = max(depth, deepest);  
         return depth;
       }
-
-      int left = helper(root->left, depth+1);
-      int right = helper(root->right, depth+1);
-
-      if (left == deepest && right == deepest) {
-        result = root;
-      }
-
+      auto left = helper(node->left, depth+1);
+      auto right = helper(node->right, depth+1);
+      
+      if (left == deepest && right == deepest)
+        result = node;
+      
       return max(left, right);
     }
-
-    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+  
+    TreeNode* subtreeWithAllDeepest(TreeNode* root) {
       helper(root, 0);
       return result;
     }
