@@ -4,19 +4,67 @@
  *      created :  2021 Feb 11 00:51:38 
  *      lastMod :  Thu Feb 11 00:51:38 2021 
  **/
+
+class Trie {
+public:
+    bool isEndOfWord;
+    unordered_map<char, Trie*>children;
+
+    Trie() {
+      this->isEndOfWord = false;
+    }
+
+    void insert(string word) {
+      Trie* crawl = this;
+      for (int i =0; i < word.length(); ++i) {
+        if (crawl->children.find(word[i]) == crawl->children.end())
+          crawl->children[word[i]] = new Trie;
+
+        crawl = crawl->children[word[i]];
+      }
+      crawl->isEndOfWord = true;
+
+    }
+
+    bool search(string word) {
+      Trie *crawl = this;
+
+      for (int i = 0; i < word.length(); ++i) {
+        if (crawl->children.find(word[i]) == crawl->children.end())
+          return false;
+
+        crawl = crawl->children[word[i]];
+      }
+
+      return crawl && crawl->isEndOfWord;
+    }
+
+    bool startsWith(string prefix) {
+      Trie *crawl = this;
+
+      for (int i = 0; i < prefix.length(); ++i) {
+        if (crawl->children.find(prefix[i]) == crawl->children.end())
+          return false;
+        crawl = crawl->children[prefix[i]];
+      }
+      return true;
+    }
+};
+
+/*
+
 const int ALPHABET_SIZE = 26;
 class Trie {
 public:
     bool isEndOfWord;
     Trie *children[ALPHABET_SIZE];
-    /** Initialize your data structure here. */
+
     Trie() {
       this->isEndOfWord = false;
       for (int i = 0; i < ALPHABET_SIZE; ++i)
         this->children[i] = nullptr;
     }
 
-    /** Inserts a word into the trie. */
     void insert(string word) {
 
       Trie* pCrawl = this;
@@ -31,7 +79,6 @@ public:
       pCrawl->isEndOfWord = true;
     }
 
-    /** Returns if the word is in the trie. */
     bool search(string word) {
 
       Trie* pCrawl = this;
@@ -46,7 +93,6 @@ public:
       return (pCrawl != nullptr && pCrawl->isEndOfWord);
     }
 
-    /** Returns if there is any word in the trie that starts with the given prefix. */
     bool startsWith(string prefix) {
 
       Trie* pCrawl = this;
@@ -62,6 +108,7 @@ public:
     }
 };
 
+*/
 /**
  * Your Trie object will be instantiated and called as such:
  * Trie* obj = new Trie();
