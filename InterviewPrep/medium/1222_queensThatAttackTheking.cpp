@@ -5,6 +5,8 @@
  *      lastMod :  Fri 25 Jun 23:59:27 2021 
  **/
 
+// First Solution
+
 class Solution {
 public:
     vector<vector<int>> queensAttacktheKing(vector<vector<int>>& queens, vector<int>& k) {
@@ -85,3 +87,43 @@ public:
       return res;
     }
 };
+
+// Second solution
+
+class Solution {
+public:
+    vector<vector<int>> queensAttacktheKing(vector<vector<int>>& queens, vector<int>& k) {
+
+      // [-1, 0], [1, 1], [0, -1], [-1, -1], [1, 0], [0, 1], [1, -1], [-1, 1]
+
+      vector<vector<int>>res;
+      vector<vector<bool>>que(8, vector<bool>(8, false));
+
+      for (auto &qe: queens)
+        que[qe[0]][qe[1]] = true;
+
+      for (int i = -1; i <= 1; ++i) {
+        for (int j = -1; j <= 1; ++j) {
+          if (i == 0 && j == 0)
+            continue;
+
+          int x = k[0]+i;
+          int y = k[1]+j;
+
+          while(min(x, y) >= 0 && max(x, y) < 8) {
+
+            if (que[x][y]) {
+              res.push_back({x, y});
+              break;
+            }
+
+            x+=i;
+            y+=j;
+          }
+        }
+      }
+      return res;
+    }
+};
+
+
