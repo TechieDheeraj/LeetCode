@@ -49,3 +49,33 @@ public:
 
     }
 };
+
+// Second solution
+
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+      vector<vector<int>>res(n, vector<int>(n));
+      vector<vector<bool>>seen(n, vector<bool>(n, false));
+      vector<int>dr{0, 1, 0, -1};
+      vector<int>dc{1, 0, -1, 0};
+      int r = 0, c= 0, di =0;
+
+      for (int i = 0; i< n*n; ++i) {
+        res[r][c] = i+1;
+        seen[r][c] = true;
+        int cr = r+dr[di];
+        int cc = c+dc[di];
+
+        if (cr >= 0 && cr < n && cc >= 0 && cc < n && !seen[cr][cc]) {
+          r=cr;
+          c=cc;
+        } else {
+          di = (di + 1) % 4;
+          r += dr[di];
+          c += dc[di];
+        }
+      }
+      return res;
+    }
+};
