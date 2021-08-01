@@ -47,3 +47,37 @@ public:
       return result;
     }
 };
+
+// second solution
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+      int rs = matrix.size();
+      int cs = matrix[0].size();
+      if (matrix.size() == 0) return {};
+      vector<int>dr{0, 1, 0, -1}; // direction in row traversal
+      vector<int>dc{1, 0, -1, 0}; // direction in col traversal
+      vector<int>ans;
+      vector<vector<bool>>seen(rs, vector<bool>(cs, false));
+      int r = 0, c = 0, di = 0;
+
+      for (int i = 0; i< rs*cs; ++i) {
+        ans.push_back(matrix[r][c]);
+        seen[r][c] = true;
+
+        int cr = r+dr[di];
+        int cc = c+dc[di];
+
+        if (cr >= 0 && cr < rs && cc >=0 && cc < cs && !seen[cr][cc]) {
+          r = cr;
+          c = cc;
+        } else {
+          di = (di +1) % dr.size();
+          r+=dr[di];
+          c+=dc[di];
+        }
+      }
+      return ans;
+    }
+};
