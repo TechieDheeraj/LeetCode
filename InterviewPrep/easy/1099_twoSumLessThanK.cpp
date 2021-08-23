@@ -9,6 +9,7 @@ class Solution {
 public:
     int twoSumLessThanK(vector<int>& nums, int k) {
 
+      /*
       sort(begin(nums), end(nums));
       int l = 0;
       int r = nums.size()-1;
@@ -23,5 +24,28 @@ public:
         }
       }
       return (res == INT_MIN) ? -1: res;
+      */
+      int ans = -1;
+      int arr[1001] = {};
+
+      for(auto&i: nums)
+        arr[i]++;
+
+      int l = 1;
+      int r = 1000;
+
+      while(l <= r) { // elements could be duplicated so need to check count if l == r
+        if (arr[l] > k/2)
+          break;
+        if (arr[r] == 0 || (l+r) >= k)
+          r--;
+        else {
+          if (arr[l] > (l < r ? 0: 1)) {
+            ans = max(ans, l+r);
+          }
+          l++;
+        }
+      }
+      return ans;
     }
 };
