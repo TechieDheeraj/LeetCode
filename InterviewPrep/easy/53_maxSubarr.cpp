@@ -8,7 +8,22 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-    
+  
+      int cur_sum = 0;
+      int max_sum = INT_MIN;
+      //kadane's algorithm
+
+      for (int i = 0;i < nums.size(); ++i) {
+        cur_sum+=nums[i];
+        if (cur_sum > max_sum)
+          max_sum = cur_sum;
+        if (cur_sum < 0)
+          cur_sum = 0;
+      }
+      return max_sum;
+    }
+
+    /*
       int res = nums[0];
       int size = nums.size();
       int sum = 0;
@@ -22,6 +37,7 @@ public:
         sum = max(sum, 0);
       }
       return res;
+      */
 
 /*      
       int size = nums.size();
