@@ -6,6 +6,45 @@
  **/
 
 // Implemented  https://leetcode.com/problems/is-subsequence/
+
+class Solution {
+public:
+    vector<string> gss(string &t) {
+      if (t.length() == 0) {
+        vector<string>res;
+        res.push_back("");
+        return res;
+      }
+      char ch = t[0];
+      string new_str = t.substr(1);
+
+      vector<string>res = gss(new_str);
+      vector<string>mres;
+      for (auto &i: res) {
+        mres.push_back(""+i);
+      }
+
+      for (auto &i: res) {
+        mres.push_back(ch+i);
+      }
+      return mres;
+    }
+
+    bool isSubsequence(string s, string t) {
+      auto res = gss(t);
+
+      for(auto &i: res) {
+        cout << " value is " << i << endl;
+        if (s == i) {
+          return true;
+        }
+      }
+      return false;
+    }
+};
+
+
+// Tried to optimize
 struct Result {
   vector<string>res;
   bool is_found;
